@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 // 제네릭 싱글톤 패턴을 구현한 베이스 클래스
 public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>

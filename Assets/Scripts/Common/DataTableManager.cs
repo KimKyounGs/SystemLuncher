@@ -4,53 +4,53 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// ë°ì´í„° í…Œì´ë¸”ì„ ê´€ë¦¬í•˜ëŠ” ì‹±ê¸€í†¤ ë§¤ë‹ˆì € í´ë˜ìŠ¤
+// µ¥ÀÌÅÍ Å×ÀÌºíÀ» °ü¸®ÇÏ´Â ½Ì±ÛÅæ ¸Å´ÏÀú Å¬·¡½º
 public class DataTableManager : SingletonBehaviour<DataTableManager>
 {
-    private const string DATA_PATH = "DataTable"; // ë°ì´í„° í…Œì´ë¸” íŒŒì¼ ê²½ë¡œ
+    private const string DATA_PATH = "DataTable"; // µ¥ÀÌÅÍ Å×ÀÌºí ÆÄÀÏ °æ·Î
 
-    private const string CHAPTER_DATA_TABLE = "ChapterDataTable"; // ì±•í„° ë°ì´í„° í…Œì´ë¸” íŒŒì¼ëª…
-    private List<ChapterData> ChapterDataTable = new List<ChapterData>(); // ì±•í„° ë°ì´í„° ë¦¬ìŠ¤íŠ¸
+    private const string CHAPTER_DATA_TABLE = "ChapterDataTable"; // Ã©ÅÍ µ¥ÀÌÅÍ Å×ÀÌºí ÆÄÀÏ¸í
+    private List<ChapterData> ChapterDataTable = new List<ChapterData>(); // Ã©ÅÍ µ¥ÀÌÅÍ ¸®½ºÆ®
 
-    // ì´ˆê¸°í™” í•¨ìˆ˜
+    // ÃÊ±âÈ­ ÇÔ¼ö
     protected override void Init()
     {
-        base.Init(); // ë¶€ëª¨ í´ë˜ìŠ¤ ì´ˆê¸°í™” í˜¸ì¶œ
+        base.Init(); // ºÎ¸ğ Å¬·¡½º ÃÊ±âÈ­ È£Ãâ
 
-        LoadChapterDataTable(); // ì±•í„° ë°ì´í„° í…Œì´ë¸” ë¡œë“œ
+        LoadChapterDataTable(); // Ã©ÅÍ µ¥ÀÌÅÍ Å×ÀÌºí ·Îµå
     }
 
-    // ì±•í„° ë°ì´í„° í…Œì´ë¸” ë¡œë“œ í•¨ìˆ˜
+    // Ã©ÅÍ µ¥ÀÌÅÍ Å×ÀÌºí ·Îµå ÇÔ¼ö
     private void LoadChapterDataTable()
     {
-        var parsedDataTable = CSVReader.Read($"{DATA_PATH}/{CHAPTER_DATA_TABLE}"); // CSV íŒŒì¼ ì½ê¸°
+        var parsedDataTable = CSVReader.Read($"{DATA_PATH}/{CHAPTER_DATA_TABLE}"); // CSV ÆÄÀÏ ÀĞ±â
 
-        foreach (var data in parsedDataTable) // íŒŒì‹±ëœ ë°ì´í„°ë¥¼ ìˆœíšŒ
+        foreach (var data in parsedDataTable) // ÆÄ½ÌµÈ µ¥ÀÌÅÍ¸¦ ¼øÈ¸
         {
-            var chapterData = new ChapterData // ìƒˆ ì±•í„° ë°ì´í„° ê°ì²´ ìƒì„±
+            var chapterData = new ChapterData // »õ Ã©ÅÍ µ¥ÀÌÅÍ °´Ã¼ »ı¼º
             {
-                ChapterNo = Convert.ToInt32(data["chapter_no"]), // ì±•í„° ë²ˆí˜¸ ì„¤ì •
-                TotalStages = Convert.ToInt32(data["total_stages"]), // ì´ ìŠ¤í…Œì´ì§€ ìˆ˜ ì„¤ì •
-                ChapterRewardGem = Convert.ToInt32(data["chapter_reward_gem"]), // ì±•í„° í´ë¦¬ì–´ ë³´ìƒ ë³´ì„ ì„¤ì •
-                ChapterRewardGold = Convert.ToInt32(data["chapter_reward_gold"]), // ì±•í„° í´ë¦¬ì–´ ë³´ìƒ ê³¨ë“œ ì„¤ì •
+                ChapterNo = Convert.ToInt32(data["chapter_no"]), // Ã©ÅÍ ¹øÈ£ ¼³Á¤
+                TotalStages = Convert.ToInt32(data["total_stages"]), // ÃÑ ½ºÅ×ÀÌÁö ¼ö ¼³Á¤
+                ChapterRewardGem = Convert.ToInt32(data["chapter_reward_gem"]), // Ã©ÅÍ Å¬¸®¾î º¸»ó º¸¼® ¼³Á¤
+                ChapterRewardGold = Convert.ToInt32(data["chapter_reward_gold"]), // Ã©ÅÍ Å¬¸®¾î º¸»ó °ñµå ¼³Á¤
             };
 
-            ChapterDataTable.Add(chapterData); // ë¦¬ìŠ¤íŠ¸ì— ì±•í„° ë°ì´í„° ì¶”ê°€
+            ChapterDataTable.Add(chapterData); // ¸®½ºÆ®¿¡ Ã©ÅÍ µ¥ÀÌÅÍ Ãß°¡
         }
     }
 
-    // íŠ¹ì • ì±•í„° ë²ˆí˜¸ì˜ ë°ì´í„°ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
+    // Æ¯Á¤ Ã©ÅÍ ¹øÈ£ÀÇ µ¥ÀÌÅÍ¸¦ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
     public ChapterData GetChapterData(int chapterNo)
     {
-        return ChapterDataTable.Where(item => item.ChapterNo == chapterNo).FirstOrDefault(); // LINQë¡œ ì±•í„° ë²ˆí˜¸ì— í•´ë‹¹í•˜ëŠ” ë°ì´í„° ê²€ìƒ‰ í›„ ë°˜í™˜
+        return ChapterDataTable.Where(item => item.ChapterNo == chapterNo).FirstOrDefault(); // LINQ·Î Ã©ÅÍ ¹øÈ£¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍ °Ë»ö ÈÄ ¹İÈ¯
     }
 }
 
-// ì±•í„° ë°ì´í„° í´ë˜ìŠ¤
+// Ã©ÅÍ µ¥ÀÌÅÍ Å¬·¡½º
 public class ChapterData
 {
-    public int ChapterNo; // ì±•í„° ë²ˆí˜¸
-    public int TotalStages; // ì´ ìŠ¤í…Œì´ì§€ ìˆ˜
-    public int ChapterRewardGem; // ì±•í„° í´ë¦¬ì–´ ë³´ìƒ ë³´ì„
-    public int ChapterRewardGold; // ì±•í„° í´ë¦¬ì–´ ë³´ìƒ ê³¨ë“œ
+    public int ChapterNo; // Ã©ÅÍ ¹øÈ£
+    public int TotalStages; // ÃÑ ½ºÅ×ÀÌÁö ¼ö
+    public int ChapterRewardGem; // Ã©ÅÍ Å¬¸®¾î º¸»ó º¸¼®
+    public int ChapterRewardGold; // Ã©ÅÍ Å¬¸®¾î º¸»ó °ñµå
 }

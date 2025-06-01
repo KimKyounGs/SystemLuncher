@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
-    //ë¡œê³ 
+    //·Î°í
     public Animation LogoAnim;
     public TextMeshProUGUI LogoTxt;
 
-    //íƒ€ì´í‹€
+    //Å¸ÀÌÆ²
     public GameObject Title;
     public Slider LoadingSlider;
     public TextMeshProUGUI LoadingProgressTxt;
@@ -26,45 +26,45 @@ public class TitleManager : MonoBehaviour
 
     private void Start()
     {
-        //ìœ ì € ë°ì´í„° ë¡œë“œ
+        //À¯Àú µ¥ÀÌÅÍ ·Îµå
         UserDataManager.Instance.LoadUserData();
 
-        //ì €ì¥ëœ ìœ ì € ë°ì´í„°ê°€ ì—†ìœ¼ë©´ ê¸°ë³¸ê°’ìœ¼ë¡œ ì„¸íŒ… í›„ ì €ì¥
-        if(!UserDataManager.Instance.ExistsSavedData)
+        //ÀúÀåµÈ À¯Àú µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é ±âº»°ªÀ¸·Î ¼¼ÆÃ ÈÄ ÀúÀå
+        if (!UserDataManager.Instance.ExistsSavedData)
         {
-            UserDataManager.Instance.SetDefaultUserData(); // ê¸°ë³¸ ë°ì´í„° ì„¤ì •
-            UserDataManager.Instance.SaveUserData(); // ê¸°ë³¸ ë°ì´í„° ì €ì¥
+            UserDataManager.Instance.SetDefaultUserData(); // ±âº» µ¥ÀÌÅÍ ¼³Á¤
+            UserDataManager.Instance.SaveUserData(); // ±âº» µ¥ÀÌÅÍ ÀúÀå
         }
 
+        //var confirmUIData = new ConfirmUIData();
+        //confirmUIData.ConfirmType = ConfirmType.OK_CANCEL;
+        //confirmUIData.TitleTxt = "UI Test";
+        //confirmUIData.DescTxt = "This is UI Text.";
+        //confirmUIData.OKBtnTxt = "È®ÀÎ";
+        //confirmUIData.CancelBtnTxt = "Ãë¼Ò";
+        //UIManager.Instance.OpenUI<ConfirmUI>(confirmUIData);
+
+        AudioManager.Instance.OnLoadUserData();
 
         StartCoroutine(LoadGameCo());
     }
 
-    // ë¹„ë™ê¸° ì‘ì—…ì„ í†µí•´ì„œ ê²Œì„ì„ ë©ˆì¶”ì§€ ì•Šê³  ë°±ê·¸ë¼ìš´ì—ì„œ ë‹¤ìŒ ì”¬(ë¡œë¹„ ì”¬)ì˜ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë“¤ì„ "ë¯¸ë¦¬" ë¶ˆëŸ¬ì˜¬ ìˆ˜ ìˆìŒ.
     private IEnumerator LoadGameCo()
     {
         Logger.Log($"{GetType()}::LoadGameCo");
 
-        /*
-        // í…ŒìŠ¤íŠ¸
-        AudioManager.Instance.PlayBGM(BGM.lobby);
-        yield return new WaitForSeconds(5f);
-        AudioManager.Instance.PauseBGM();
-        yield return new WaitForSeconds(5f);
-        AudioManager.Instance.ResumeBGM();
-        yield return new WaitForSeconds(5f);
-        AudioManager.Instance.StopBGM();
-        */
+
         
-        // ë¡œê³  ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
+
+
+
+
         LogoAnim.Play();
-        yield return new WaitForSeconds(LogoAnim.clip.length); // ë¡œê³  ì• ë‹ˆë©”ì´ì…˜ ê¸¸ì´ë§Œí¼ ëŒ€ê¸°
-        
-        // ë¡œê³  ë¹„í™œì„±í™”, íƒ€ì´í‹€(ë¡œë”©ë°”) í™œì„±í™”
+        yield return new WaitForSeconds(LogoAnim.clip.length);
+
         LogoAnim.gameObject.SetActive(false);
         Title.SetActive(true);
 
-        // ì”¬ ë¹„ë™ê¸° ë¡œë”© ì‹œì‘
         m_AsyncOperation = SceneLoader.Instance.LoadSceneAsync(SceneType.Lobby);
         if (m_AsyncOperation == null)
         {
@@ -75,23 +75,23 @@ public class TitleManager : MonoBehaviour
         m_AsyncOperation.allowSceneActivation = false;
 
         /*
-        * ë¡œë”© ì‹œê°„ì´ ì§§ì€ ê²½ìš° ë¡œë”© ìŠ¬ë¼ì´ë” ë³€í™”ê°€ ë„ˆë¬´ ë¹¨ë¼ ë³´ì´ì§€ ì•Šì„ ìˆ˜ ìˆë‹¤.
-        * ì¼ë¶€ëŸ¬ ëª‡ ì´ˆ ê°„ 50%ë¡œ ë³´ì—¬ì¤Œìœ¼ë¡œì¨ ì‹œê°ì ìœ¼ë¡œ ë” ìì—°ìŠ¤ëŸ½ê²Œ ì²˜ë¦¬í•œë‹¤.
+        * ·Îµù ½Ã°£ÀÌ ÂªÀº °æ¿ì ·Îµù ½½¶óÀÌ´õ º¯È­°¡ ³Ê¹« »¡¶ó º¸ÀÌÁö ¾ÊÀ» ¼ö ÀÖ´Ù.
+        * ÀÏºÎ·¯ ¸î ÃÊ °£ 50%·Î º¸¿©ÁÜÀ¸·Î½á ½Ã°¢ÀûÀ¸·Î ´õ ÀÚ¿¬½º·´°Ô Ã³¸®ÇÑ´Ù.
         */
         LoadingSlider.value = 0.5f;
         LoadingProgressTxt.text = $"{(int)(LoadingSlider.value * 100)}%";
         yield return new WaitForSeconds(0.5f);
 
-        while (!m_AsyncOperation.isDone) //ë¡œë”©ì´ ì§„í–‰ ì¤‘ì¼ ë•Œ 
+        while (!m_AsyncOperation.isDone) //·ÎµùÀÌ ÁøÇà ÁßÀÏ ¶§ 
         {
-            //ë¡œë”© ìŠ¬ë¼ì´ë” ì—…ë°ì´íŠ¸
+            //·Îµù ½½¶óÀÌ´õ ¾÷µ¥ÀÌÆ®
             LoadingSlider.value = m_AsyncOperation.progress < 0.5f ? 0.5f : m_AsyncOperation.progress;
             LoadingProgressTxt.text = $"{(int)(LoadingSlider.value * 100)}%";
 
-            //ì”¬ ë¡œë”©ì´ ì™„ë£Œë˜ì—ˆë‹¤ë©´ ë¡œë¹„ë¡œ ì „í™˜í•˜ê³  ì½”ë£¨í‹´ ì¢…ë£Œ
+            //¾À ·ÎµùÀÌ ¿Ï·áµÇ¾ú´Ù¸é ·Îºñ·Î ÀüÈ¯ÇÏ°í ÄÚ·çÆ¾ Á¾·á
             if (m_AsyncOperation.progress >= 0.9f)
             {
-                m_AsyncOperation.allowSceneActivation = true; // ì”¬ ì „í™˜ í—ˆìš©.
+                m_AsyncOperation.allowSceneActivation = true;
                 yield break;
             }
 

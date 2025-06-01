@@ -10,10 +10,10 @@ EditorBuildSettings:
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
-    guid: 9eb0b8a02a7cc064995d90b6e22f41f6
+    guid: 0af0fff9c4e399847a6664b9221c7e47
   - enabled: 1
     path: Assets/Scenes/InGame.unity
-    guid: ac42e86b68ceaa44da0c6778918ba0ee
+    guid: 806a376d395dbb74abaca3ba06d5c2d0
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
   m_UseUCBPForAssetBundles: 0
